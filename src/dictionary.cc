@@ -114,7 +114,13 @@ entry_type Dictionary::getType(int32_t id) const {
 }
 
 entry_type Dictionary::getType(const std::string& w) const {
-  return (w.find(args_->label) == 0) ? entry_type::label : entry_type::word;
+    std::string &label = args_->label;
+    if (w.find(label) == 0 && !(w == label)) {
+        return entry_type::label;
+    }
+
+    return entry_type::word;
+
 }
 
 std::string Dictionary::getWord(int32_t id) const {
